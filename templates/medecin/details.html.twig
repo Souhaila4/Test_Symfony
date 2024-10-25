@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MedcinController!{% endblock %}
+
+{% block body %}
+<h1>Medcin Details</h1>
+<div>
+{% if author is not null %}
+<img src="{{asset(author.picture)}}" alt="{{author.username}}" height="150px">
+<p><b>Username : </b> {{ author.username | upper }} </p>
+<p><b>Email : </b> {{ author.email }} </p>
+<p><b>Number of Books : </b> {{ author.nbBooks }} </p>
+{% else %}
+<p>Medcin not found.</p>
+{% endif %}
+<a href="{{path('app_author_list')}}">Return to List.</a>
+</div>
+{% endblock %}

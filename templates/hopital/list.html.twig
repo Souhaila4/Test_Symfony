@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hospitals List{% endblock %}
+
+{% block body %}
+<h1>Hospitals List</h1>
+<a href="{{ path('app_hopital_new') }}">Add Hospital</a>
+
+<div>
+    {% if hospitals is defined and hospitals is empty %}
+        <p>No hospitals available.</p>
+    {% else %}
+        {% for hospital in hospitals %}
+            <p><b>Hospital Name: </b> {{ hospital.nom | upper }}</p>
+            <p><b>Date of Fabrication: </b> {{ hospital.date_fabrication ? hospital.date_fabrication|date('Y-m-d') : 'N/A' }}</p>
+            <a href="{{ path('app_hopital_update', { id: hospital.id }) }}">Edit</a>
+            <a href="{{ path('app_hopital_delete', { id: hospital.id }) }}">Delete</a>
+            <hr>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

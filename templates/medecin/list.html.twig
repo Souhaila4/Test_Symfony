@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medecins List{% endblock %}
+
+{% block body %}
+<h1>Medecins List</h1>
+<a href="{{ path('app_medecin_new') }}">Add Medecin</a>
+
+<div>
+    {# Render the search form #}
+    {{ form_start(searchForm) }}
+        {{ form_row(searchForm.dateOfBirth) }}
+        <button type="submit">Search</button>
+    {{ form_end(searchForm) }}
+</div>
+
+<hr>
+
+<div>
+    {% if medecins is defined and medecins is empty %}
+        <p>No medecins found.</p>
+    {% else %}
+        {% for medecin in medecins %}
+            <p><b>Name: </b> {{ medecin.nom | upper }}</p>
+            <p><b>Date of Birth: </b> {{ medecin.dns ? medecin.dns|date('Y-m-d') : 'N/A' }}</p>
+            <p><b>Hospital: </b> {{ medecin.hospitals ? medecin.hospitals.nom : 'No hospital assigned' }}</p>
+            <a href="{{ path('app_medecin_update', { id: medecin.id }) }}">Edit</a>
+            <a href="{{ path('app_medecin_delete', { id: medecin.id }) }}" onclick="return confirm('Are you sure?');">Delete</a>
+            <hr>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
